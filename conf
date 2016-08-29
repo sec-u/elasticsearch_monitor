@@ -1,0 +1,20 @@
+[time]
+# 取值时间段
+count_time=300
+
+# 数据存放配置
+[elasticsearch]
+# elasticsearch 主机ip
+hosts=127.0.0.1:9200
+# 索引名字
+index_name=kafka
+# 数据文档名字
+doc_type_name=elasticsearch
+# 一次 bulk 条数
+bulk_num=15
+
+# 需要监控的 elasticsearch 集群，可以有很多，每个一个线程
+[hosts]
+host1=127.0.0.1:9201
+host2=127.0.0.1:9202
+
