@@ -24,6 +24,7 @@ if __name__ == '__main__':
 
     hosts = [host for key, host in cf.items('hosts')]
     count_time = cf.getint('time', 'count_time')
+    intervals = cf.getint('time', 'intervals')
 
     es_hosts = cf.get('elasticsearch', 'hosts')
     es_index_name = cf.get('elasticsearch', 'index_name')
@@ -35,7 +36,8 @@ if __name__ == '__main__':
 
     # 实例化数据采集器
     for i in hosts:
-        get_data = EsMonitor(hosts=i, queue=queue, count_time=count_time)
+        get_data = EsMonitor(hosts=i, queue=queue,
+                             count_time=count_time, intervals=intervals)
         get_data_thread = MyThread(get_data.work)
         get_data_thread.start()
         time.sleep(5)

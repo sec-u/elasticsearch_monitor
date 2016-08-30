@@ -16,7 +16,7 @@ from elasticsearch import Elasticsearch
 
 
 class EsMonitor(object):
-    def __init__(self, hosts, queue, count_time=300):
+    def __init__(self, hosts, queue, count_time=300, intervals=60):
         # es 集群ip
         self.hosts = hosts
         # 实例化 es 链接
@@ -25,6 +25,8 @@ class EsMonitor(object):
         self.count_time = count_time
         # 数据存放地
         self.queue = queue
+        # 取值时间间隔
+        self.intervals = intervals
 
     @staticmethod
     def indices_filter(index):
@@ -102,7 +104,7 @@ class EsMonitor(object):
                 # 执行间隔时间
                 t = time.clock() - t0
                 # 睡眠时间减去执行时间 保证间隔时间相等
-                time.sleep(self.count_time - t)
+                time.sleep(self.intervals - t)
             except Exception as e:
                 date = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
                 print(date)

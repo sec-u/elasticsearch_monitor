@@ -1,6 +1,8 @@
 [time]
 # 取值时间段
 count_time=300
+# 取值间隔时间
+intervals=60
 
 # 数据存放配置
 [elasticsearch]
