@@ -104,7 +104,11 @@ class EsMonitor(object):
                 # 执行间隔时间
                 t = time.clock() - t0
                 # 睡眠时间减去执行时间 保证间隔时间相等
-                time.sleep(self.intervals - t)
+                sleep_time = self.intervals - t
+                if sleep_time < 0:
+                    sleep_time = 0
+
+                time.sleep(sleep_time)
             except Exception as e:
                 date = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
                 print(date)
