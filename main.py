@@ -10,6 +10,7 @@
 
 
 import time
+import logging
 from Queue import Queue
 from ConfigParser import ConfigParser
 from esmonitor.mythread import MyThread
@@ -30,6 +31,13 @@ if __name__ == '__main__':
     es_index_name = cf.get('elasticsearch', 'index_name')
     es_type_name = cf.get('elasticsearch', 'doc_type_name')
     es_bulk_num = cf.getint('elasticsearch', 'bulk_num')
+
+    # 日志打印信息
+    logging.basicConfig(level=logging.ERROR,
+                        format=('[%(asctime)s] [%(levelname)s] [%(pathname)s] [%(funcName)s]'
+                                ' [line:%(lineno)d] %(message)s'),
+                        filename='EsMonitor.log',
+                        filemode='a')
 
     # 数据容器
     queue = Queue()

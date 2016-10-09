@@ -14,6 +14,8 @@ import logging
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
+logger = logging.getLogger('EsMonitor')
+
 
 class EsMonitor(object):
     def __init__(self, hosts, queue, count_time=300, intervals=60):
@@ -110,7 +112,4 @@ class EsMonitor(object):
 
                 time.sleep(sleep_time)
             except Exception as e:
-                date = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-                print(date)
-
-                logging.exception(e)
+                logger.error(e)

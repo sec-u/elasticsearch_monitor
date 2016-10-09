@@ -16,6 +16,8 @@ from Queue import Queue
 from mythread import MyThread
 from elasticsearch import Elasticsearch, helpers
 
+logger = logging.getLogger()
+
 
 class EsInsert(object):
     def __init__(self, queue, es_index_name, doc_type,
@@ -42,18 +44,14 @@ class EsInsert(object):
             # 插入数据到es
             self.es.index(index=index_name, doc_type=self.doc_type, body=data_json)
         except Exception as e:
-            date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-            logging.exception(e)
-            print("%s index数据插入es失败 %s" % (date, e))
+            logger.error(e)
 
     def bulk_index(self, data):
         """ bulk 插入数据 """
         try:
             helpers.bulk(self.es, data)
         except Exception as e:
-            date = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-            logging.exception(e)
-            print('%s bulk数据插入es失败 %s' % (date, e))
+            logger.error(e)
 
     def bulk_data(self):
         """ 构造要插入的bulk数据 """
